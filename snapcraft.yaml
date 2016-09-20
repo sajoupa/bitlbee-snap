@@ -1,0 +1,43 @@
+name: bitlbee
+version: 3.4.2
+summary: An IRC to other chat networks gateway
+description:
+  BitlBee brings IM (instant messaging) to IRC clients.
+  It's a great solution for people who have an IRC client
+  running all the time and don't want to run an additional
+  MSN/AIM/whatever client.
+confinement: strict
+
+apps:
+  bitlbee:
+    command: wrapper-bitlbee-start
+    plugs:
+      - network-bind
+      - home
+  bitlbee-stop:
+    command: wrapper-bitlbee-stop
+    plugs:
+      - process-control
+
+parts:
+  bitlbee:
+    plugin: autotools
+    configflags: ["--ssl=gnutls"]
+    source: http://get.bitlbee.org/src/bitlbee-3.4.2.tar.gz
+    build-packages:
+      - libglib2.0-dev
+      - libgnutls28-dev
+      - libgcrypt20-dev
+  wrapper:
+    plugin: dump
+    source: .
+    organize:
+      wrapper-bitlbee-start: bin/wrapper-bitlbee-start
+      wrapper-bitlbee-stop: bin/wrapper-bitlbee-stop
+  conf:
+    plugin: dump
+    source: parts/bitlbee/src
+    organize:
+      bitlbee.conf: etc/bitlbee.conf
+    after:
+      - bitlbee

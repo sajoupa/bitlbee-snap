@@ -1,0 +1,5 @@
+#!/bin/bash
+
+ps -u $USER -o pid,command | while read pid path trash ; do
+  [ $path == "$SNAP/sbin/bitlbee" ] && kill $pid
+done
