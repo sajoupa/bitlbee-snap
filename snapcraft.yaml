@@ -1,4 +1,4 @@
-name: bitlbee
+name: bitlbee-sajoupa
 version: 3.4.2
 summary: An IRC to other chat networks gateway
 description:
@@ -28,16 +28,11 @@ parts:
       - libglib2.0-dev
       - libgnutls28-dev
       - libgcrypt20-dev
-  wrapper:
+    organize:
+      ../src/bitlbee.conf: etc/bitlbee.conf
+  wrappers:
     plugin: dump
     source: .
     organize:
       wrapper-bitlbee-start: bin/wrapper-bitlbee-start
       wrapper-bitlbee-stop: bin/wrapper-bitlbee-stop
-  conf:
-    plugin: dump
-    source: parts/bitlbee/src
-    organize:
-      bitlbee.conf: etc/bitlbee.conf
-    after:
-      - bitlbee
