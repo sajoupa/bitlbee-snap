@@ -1,5 +1,5 @@
 name: bitlbee-sajoupa
-version: 3.4.2
+version: 3.5.1
 summary: An IRC to other chat networks gateway
 description:
   BitlBee brings IM (instant messaging) to IRC clients.
@@ -7,32 +7,45 @@ description:
   running all the time and don't want to run an additional
   MSN/AIM/whatever client.
 confinement: strict
+base: core18
+grade: stable
 
 apps:
   bitlbee:
-    command: wrapper-bitlbee-start
+    command: 'bin/bitlbee.wrapper'
+    daemon: simple
     plugs:
       - network-bind
       - home
-  bitlbee-stop:
-    command: wrapper-bitlbee-stop
-    plugs:
-      - process-control
 
 parts:
-  bitlbee:
-    plugin: autotools
-    configflags: ["--ssl=gnutls"]
-    source: http://get.bitlbee.org/src/bitlbee-3.4.2.tar.gz
-    build-packages:
-      - libglib2.0-dev
-      - libgnutls28-dev
-      - libgcrypt20-dev
-    organize:
-      ../src/bitlbee.conf: etc/bitlbee.conf
-  wrappers:
+
+  snap-wrappers:
+    after: [telegram-purple]
     plugin: dump
     source: .
     organize:
-      wrapper-bitlbee-start: bin/wrapper-bitlbee-start
-      wrapper-bitlbee-stop: bin/wrapper-bitlbee-stop
+      bitlbee_wrapper: bin/bitlbee.wrapper
+
+  telegram-purple:
+    plugin: autotools
+    source: https://github.com/majn/telegram-purple.git
+    stage-packages:
+      - bitlbee-dev
+      - bitlbee-libpurple
+      - gettext
+      - libglib2.0-dev
+      - libgnutls28-dev
+      - libgcrypt20-dev
+      - libjson-glib-dev
+      - libotr5-dev
+      - libpng-dev
+      - libprotobuf-c-dev
+      - libpurple-dev
+      - libwebp-dev
+      - protobuf-c-compiler
+    stage:
+      - bin
+      - etc
+      - lib
+      - usr
