@@ -37,7 +37,7 @@ parts:
       - libglib2.0-dev
       - libgnutls28-dev
       - libgcrypt20-dev
-      - libgmp2
+      - libgpm2
       - libjson-glib-dev
       - libotr5-dev
       - libpng-dev
