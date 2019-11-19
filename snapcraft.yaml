@@ -37,6 +37,7 @@ parts:
       - libglib2.0-dev
       - libgnutls28-dev
       - libgcrypt20-dev
+      - libgmp-dev
       - libjson-glib-dev
       - libotr5-dev
       - libpng-dev
@@ -44,8 +45,3 @@ parts:
       - libpurple-dev
       - libwebp-dev
       - protobuf-c-compiler
-    stage:
-      - bin
-      - etc
-      - lib
-      - usr
