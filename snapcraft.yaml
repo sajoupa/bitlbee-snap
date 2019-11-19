@@ -16,7 +16,6 @@ apps:
     daemon: simple
     plugs:
       - network-bind
-      - home
 
 parts:
 
