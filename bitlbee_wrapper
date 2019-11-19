@@ -4,4 +4,4 @@
 : ${SNAP?} ${SNAP_DATA?}
 # Copy only if not existing
 cp -pn $SNAP/etc/bitlbee/bitlbee.conf $SNAP_DATA/bitlbee.conf
-exec $SNAP/usr/sbin/telegraf -F -n --config $SNAP_DATA/bitlbee.conf
+exec $SNAP/usr/sbin/bitlbee -F -n --config $SNAP_DATA/bitlbee.conf
